@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Insta Ghosting
 
-## Getting Started
+Descubra quem você segue no Instagram que não te segue de volta — e quem te segue e
+você ainda não segue de volta. Sem login, sem scraping, **100% processado no seu
+navegador**.
 
-First, run the development server:
+## Como funciona
+
+1. Você exporta os seus próprios dados pelo canal oficial da Meta (Configurações →
+   Central de Contas → Suas informações e permissões → Exportar informações)
+2. Faz upload do `.zip` recebido aqui no app
+3. O app extrai e compara as listas de seguidores/seguindo **localmente, no seu
+   navegador** — nenhum arquivo ou dado é enviado a um servidor
+4. Você vê o resultado em duas listas: quem não te segue de volta, e quem você não
+   segue de volta
+
+Não pedimos usuário ou senha do Instagram, e não fazemos nenhuma requisição
+automatizada contra o Instagram (scraping). Veja mais em [CLAUDE.md](CLAUDE.md).
+
+## Stack
+
+- [Next.js](https://nextjs.org) (App Router) + TypeScript
+- Tailwind CSS + [shadcn/ui](https://ui.shadcn.com)
+- [JSZip](https://stuk.github.io/jszip/) para extrair o `.zip` no navegador
+
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000). Pra testar o fluxo completo,
+você precisa de um export real de dados do Instagram (categoria "Conexões", formato
+JSON) — veja o tutorial dentro do próprio app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Outros comandos:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # build de produção
+npm run lint    # lint
+```
 
-## Learn More
+> ⚠️ Nunca commite um arquivo de exportação real do Instagram — ele contém usernames
+> reais de terceiros. O `.gitignore` já bloqueia `*.zip`, mas fique atento se for
+> testar com dados de verdade.
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura do projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/                    # páginas (App Router)
+components/             # componentes React (landing page, upload, resultado)
+components/ui/          # componentes shadcn/ui
+lib/                    # parsing do zip, comparação de listas, tipos — sem React
+hooks/                  # hooks client-side (ex: perfis marcados como resolvidos)
+specs/                  # spec de cada feature grande
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Specs
 
-## Deploy on Vercel
+Cada feature grande tem uma spec em [`/specs`](specs). A atual:
+[`001-comparador-seguidores.md`](specs/001-comparador-seguidores.md).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Fora de escopo (por enquanto)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Login/autenticação, scraping, histórico entre exportações, backend/banco de dados e
+monetização. Ver [CLAUDE.md](CLAUDE.md) para os princípios completos do produto.
