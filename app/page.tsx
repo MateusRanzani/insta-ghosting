@@ -8,15 +8,17 @@ export default function Home() {
     <div className="flex flex-1 flex-col">
       <section className="bg-hero-soft flex flex-col items-center gap-6 px-6 pt-16 pb-10 text-center sm:pt-24">
         <span className="bg-gradient-instagram rounded-full px-3 py-1 text-xs font-medium text-white">
-          Sem login · Sem scraping · 100% no navegador
+          Sem login · Sem scraping · 100% seguro
         </span>
         <h1 className="max-w-2xl text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
-          Descubra quem <span className="text-gradient-instagram">não te segue de volta</span> no
-          Instagram
+          Descubra quem{" "}
+          <span className="text-gradient-instagram">não te segue de volta</span>{" "}
+          no Instagram
         </h1>
         <p className="text-muted-foreground max-w-xl text-lg text-balance">
-          Envie o arquivo de exportação de dados que a própria Meta te dá — descobrimos tudo no seu
-          navegador, sem pedir sua senha e sem qualquer risco pra sua conta.
+          Envie o arquivo de exportação de dados que a própria Meta te dá —
+          descobrimos tudo no seu navegador, sem salvar dados, sem pedir sua
+          senha e sem qualquer risco pra sua conta.
         </p>
         <HowItWorksWizard />
       </section>
@@ -45,8 +47,8 @@ export default function Home() {
       </section>
 
       <footer className="text-muted-foreground border-t px-6 py-8 text-center text-sm">
-        Este app não é afiliado ao Instagram ou à Meta. Nenhum dado que você envia sai do seu
-        navegador.
+        Este app não é afiliado ao Instagram ou à Meta. Nenhum dado que você
+        envia sai do seu navegador.
       </footer>
     </div>
   );

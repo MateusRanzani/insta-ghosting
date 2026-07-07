@@ -1,20 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ExternalLink, Search, Shuffle, UserX } from "lucide-react";
+import { Download, ExternalLink, Search, Shuffle, UserX } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useResolvedProfiles } from "@/hooks/useResolvedProfiles";
+import { downloadProfilesAsCsv } from "@/lib/export-profiles";
 import type { ProfileWithRenameHint } from "@/lib/types";
 
 interface ProfileListProps {
   profiles: ProfileWithRenameHint[];
   emptyMessage: string;
+  exportFileName: string;
 }
 
-export function ProfileList({ profiles, emptyMessage }: ProfileListProps) {
+export function ProfileList({ profiles, emptyMessage, exportFileName }: ProfileListProps) {
   const [search, setSearch] = useState("");
   const [hideResolved, setHideResolved] = useState(false);
   const { isResolved, toggle, resolvedCount } = useResolvedProfiles();
@@ -39,13 +42,25 @@ export function ProfileList({ profiles, emptyMessage }: ProfileListProps) {
       </div>
 
       {profiles.length > 0 && (
-        <label className="text-muted-foreground flex items-center justify-between gap-2 text-sm">
-          <span className="flex items-center gap-2">
+        <div className="text-muted-foreground flex flex-wrap items-center justify-between gap-2 text-sm">
+          <label className="flex items-center gap-2">
             <Switch checked={hideResolved} onCheckedChange={setHideResolved} size="sm" />
             Ocultar já resolvidos
-          </span>
-          {resolvedCount > 0 && <span>{resolvedCount} marcados como resolvidos</span>}
-        </label>
+          </label>
+          <div className="flex items-center gap-3">
+            {resolvedCount > 0 && <span>{resolvedCount} marcados como resolvidos</span>}
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full"
+              disabled={filteredProfiles.length === 0}
+              onClick={() => downloadProfilesAsCsv(filteredProfiles, exportFileName)}
+            >
+              <Download className="size-3.5" />
+              Exportar CSV
+            </Button>
+          </div>
+        </div>
       )}
 
       {filteredProfiles.length === 0 ? (

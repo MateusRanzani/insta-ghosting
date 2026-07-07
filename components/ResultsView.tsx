@@ -65,18 +65,21 @@ export function ResultsView({ result, onReset }: ResultsViewProps) {
           <ProfileList
             profiles={result.notFollowingBack}
             emptyMessage="Ninguém por aqui — todo mundo que você segue, te segue de volta."
+            exportFileName="nao-seguem-de-volta.csv"
           />
         </TabsContent>
         <TabsContent value="you-dont-follow-back" className="mt-4">
           <ProfileList
             profiles={result.youDontFollowBack}
             emptyMessage="Ninguém por aqui — você já segue de volta todo mundo que te segue."
+            exportFileName="voce-nao-segue-de-volta.csv"
           />
         </TabsContent>
         <TabsContent value="mutual" className="mt-4">
           <ProfileList
             profiles={result.mutual}
             emptyMessage="Ninguém por aqui — ainda não há nenhum seguidor mútuo."
+            exportFileName="reciproco.csv"
           />
         </TabsContent>
       </Tabs>
