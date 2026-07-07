@@ -31,9 +31,15 @@ export function compareFollowLists(
     .filter((p) => !followingUsernames.has(p.username.toLowerCase()))
     .sort(byUsername);
 
+  const mutual = following
+    .filter((p) => followerUsernames.has(p.username.toLowerCase()))
+    .sort(byUsername)
+    .map((profile) => ({ ...profile, possibleRename: null }));
+
   return {
     notFollowingBack: withRenameHints(notFollowingBack, followers),
     youDontFollowBack: withRenameHints(youDontFollowBack, following),
+    mutual,
     totalFollowing: following.length,
     totalFollowers: followers.length,
   };

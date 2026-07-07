@@ -1,9 +1,10 @@
 "use client";
 
-import { Info, RotateCcw, UserMinus, UserPlus } from "lucide-react";
+import { Info, RotateCcw, UserCheck, UserMinus, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProfileList } from "@/components/ProfileList";
+import { ResultsDashboard } from "@/components/ResultsDashboard";
 import type { ComparisonResult } from "@/lib/types";
 
 interface ResultsViewProps {
@@ -30,7 +31,7 @@ export function ResultsView({ result, onReset }: ResultsViewProps) {
         <TabsList className="h-auto w-full gap-1 bg-transparent p-0">
           <TabsTrigger
             value="not-following-back"
-            className="h-auto flex-1 gap-2 rounded-full border py-2 data-active:bg-foreground data-active:text-background"
+            className="h-auto flex-1 gap-2 rounded-full border py-2 data-active:bg-foreground data-active:text-background data-active:hover:text-background"
           >
             <UserMinus className="size-4" />
             Não te seguem de volta
@@ -40,12 +41,22 @@ export function ResultsView({ result, onReset }: ResultsViewProps) {
           </TabsTrigger>
           <TabsTrigger
             value="you-dont-follow-back"
-            className="h-auto flex-1 gap-2 rounded-full border py-2 data-active:bg-foreground data-active:text-background"
+            className="h-auto flex-1 gap-2 rounded-full border py-2 data-active:bg-foreground data-active:text-background data-active:hover:text-background"
           >
             <UserPlus className="size-4" />
             Você não segue de volta
             <span className="ml-1 rounded-full bg-black/10 px-1.5 py-0.5 text-xs group-data-active/tabs-list:bg-white/20">
               {result.youDontFollowBack.length}
+            </span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="mutual"
+            className="h-auto flex-1 gap-2 rounded-full border py-2 data-active:bg-foreground data-active:text-background data-active:hover:text-background"
+          >
+            <UserCheck className="size-4" />
+            Recíproco
+            <span className="ml-1 rounded-full bg-black/10 px-1.5 py-0.5 text-xs group-data-active/tabs-list:bg-white/20">
+              {result.mutual.length}
             </span>
           </TabsTrigger>
         </TabsList>
@@ -62,6 +73,12 @@ export function ResultsView({ result, onReset }: ResultsViewProps) {
             emptyMessage="Ninguém por aqui — você já segue de volta todo mundo que te segue."
           />
         </TabsContent>
+        <TabsContent value="mutual" className="mt-4">
+          <ProfileList
+            profiles={result.mutual}
+            emptyMessage="Ninguém por aqui — ainda não há nenhum seguidor mútuo."
+          />
+        </TabsContent>
       </Tabs>
 
       <p className="text-muted-foreground flex items-start gap-1.5 text-xs">
@@ -72,6 +89,8 @@ export function ResultsView({ result, onReset }: ResultsViewProps) {
         essa inconsistência vem do próprio arquivo do Instagram, não é um erro do
         comparador.
       </p>
+
+      <ResultsDashboard result={result} />
     </div>
   );
 }

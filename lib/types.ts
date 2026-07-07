@@ -47,6 +47,8 @@ export interface ComparisonResult {
   notFollowingBack: ProfileWithRenameHint[];
   /** followers - following: te seguem, mas você não segue de volta. */
   youDontFollowBack: ProfileWithRenameHint[];
+  /** following ∩ followers: seguem um ao outro. */
+  mutual: ProfileWithRenameHint[];
   totalFollowing: number;
   totalFollowers: number;
 }

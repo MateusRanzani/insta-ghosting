@@ -1,5 +1,6 @@
 import { ComparatorApp } from "@/components/ComparatorApp";
 import { FeatureCards } from "@/components/FeatureCards";
+import { HowItWorksWizard } from "@/components/HowItWorksWizard";
 import { TutorialSteps } from "@/components/TutorialSteps";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
           Envie o arquivo de exportação de dados que a própria Meta te dá — descobrimos tudo no seu
           navegador, sem pedir sua senha e sem qualquer risco pra sua conta.
         </p>
+        <HowItWorksWizard />
       </section>
 
       <section className="mx-auto -mt-2 w-full max-w-2xl px-6 pb-4">
@@ -28,13 +30,16 @@ export default function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            Como conseguir o arquivo de exportação
-          </h2>
-          <p className="text-muted-foreground mt-2">
-            Leva algumas horas pela Meta te avisar, mas o processo é simples.
-          </p>
+        <div className="mb-8 flex flex-col items-center gap-4 text-center">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Como conseguir o arquivo de exportação
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Leva algumas horas pela Meta te avisar, mas o processo é simples.
+            </p>
+          </div>
+          <HowItWorksWizard />
         </div>
         <TutorialSteps />
       </section>
